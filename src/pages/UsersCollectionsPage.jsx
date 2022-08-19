@@ -19,12 +19,12 @@ const UsersCollectionsPage = () => {
 
     if(collections.length === 0){
         return (
-            <h1 className='text-center'> No collections.</h1>
+            <h1 className='text-center dark:text-white py-5'> You haven't created collection yet.</h1>
         )
     }
 
     return (
-        <div className='justify-center items-center mt-4 mx-auto px-2'>
+        <div className='mx-auto max-w-xl px-3'>
             {collections?.map((collection, index) => (
                 <Collection key={index} collection={collection}/>
             ))}

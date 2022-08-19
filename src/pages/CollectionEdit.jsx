@@ -49,7 +49,7 @@ const CollectionEdit = () => {
         <div className="flex items-center justify-center max-w-[400px]" data-color-mode={theme}>
             <form className="mx-auto py-10" onSubmit={(e) => e.preventDefault()}>
                 <label
-                    className='text-gray-300 py-2 bg-gray-600 text-s mt-2 flex items-center justify-center border-2 border-dotted cursor-pointer'>
+                    className='dark:text-gray-300 py-2 bg-gray-300 dark:bg-gray-800  text-s mt-2 flex items-center justify-center border-2 border-dotted cursor-pointer'>
                     Прикрепить изображение
                     <input type='file' className='hidden' onChange={(e) => {
                         setNewImage(e.target.files[0])
@@ -68,16 +68,16 @@ const CollectionEdit = () => {
                     )}
                 </div>
 
-                <label className='text-s text-gray-400'>
+                <label className='text-s text-gray-400 '>
                     Название коллекции:
                     <input type='text' value={title} onChange={(e) => setTitle(e.target.value)}
-                           className='mt-1 text-s text-black w-full rounded-lg bg-gray-400 border-1 py-1 px-2 outline-none'/>
+                           className='mt-1 text-s text-black w-full rounded-lg bg-gray-300 dark:bg-gray-800 dark:text-white border-1 py-1 px-2 outline-none'/>
                 </label>
 
                 <label className='text-s text-gray-400'>
                     Тема коллекции:
                     <input type='text' value={textTheme} onChange={(e) => setTextTheme(e.target.value)}
-                           className='mt-1 text-s text-black w-full rounded-lg bg-gray-400 border-1 py-1 px-2 outline-none'/>
+                           className='mt-1 text-s text-black w-full rounded-lg bg-gray-300 dark:bg-gray-800 dark:text-white border-1 py-1 px-2 outline-none'/>
                 </label>
 
                 <label className='text-s text-gray-400'>
@@ -91,13 +91,12 @@ const CollectionEdit = () => {
 
                 <div className="flex gap-8 items-center justify-center mt-4 py-2">
                     <button onClick={submitHandler}
-                            className="flex justify-center items-center bg-gray-600 text-s text-white rounded-md py-2 px-4">
-                        Изменить пост
+                            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Save changes
                     </button>
-                    <button onClick={() => {
-                        navigate(`/collection/${params.id}`)
-                    }}
-                            className="flex justify-center items-center bg-red-400 text-s text-white rounded-md py-2 px-4">Отменить
+                    <button onClick={() => {navigate(`/collection/${params.id}`)}}
+                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        Return
                     </button>
                 </div>
             </form>

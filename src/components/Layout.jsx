@@ -1,6 +1,5 @@
 import React from 'react';
 import Nav from "./Nav";
-import Toggle from "./ThemeToggle";
 
 const Layout = ({children}) => {
     return (

@@ -26,21 +26,18 @@ const RegisterPage = () => {
     }
 
     return (
-        <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40 px-2">
-            <h1 className="text-xl text-white text-center">Регистрация</h1>
-
+        <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40 px-2 text-black dark:text-white">
+            <h1 className="text-xl text-center">Registration</h1>
             <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username"
-                   className="mt-1 text-black w-full rounded-lg bg-gray-200 border py-1.5 px-2 text-m text-center"/>
-
+                   className="mt-1 w-full rounded-lg bg-gray-200 dark:bg-gray-800 border py-1.5 px-2 text-m text-center"/>
             <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"
-                   className="mt-3 text-black w-full rounded-lg bg-gray-200 border py-1.5 px-2 text-m text-center"/>
-
-            <div className="flex gap-8 justify-center mt-4">
-                <button type='submit' onClick={handleSubmit}
-                        className="flex justify-center items-center bg-gray-600 text-s text-white rounded-sm py-2 px-10">
+                   className="mt-3 w-full rounded-lg bg-gray-200 dark:bg-gray-800 border py-1.5 px-2 text-m text-center"/>
+            <div className="justify-center items-center flex mt-4 gap-8">
+                <button type="submit" onClick={handleSubmit}
+                        className="text-gray-900 bg-gray-200 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                     Sign up
                 </button>
-                <Link to='/login' className='flex justify-center items-center text-s text-black'>Have an account?</Link>
+                <Link to='/login' className='text-s'>Have an account?</Link>
             </div>
         </form>
     );
