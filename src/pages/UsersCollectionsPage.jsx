@@ -7,7 +7,6 @@ const UsersCollectionsPage = () => {
     const fetchUsersCollections = async () => {
         try{
             const { data } = await axios.get('/collection/user-posts')
-            console.log(data.list)
             setCollections(data.list)
         } catch (e) {
             console.log(e)
@@ -25,7 +24,7 @@ const UsersCollectionsPage = () => {
     }
 
     return (
-        <div className='w-1/2 mx-auto py-10 flex flex-col gap-10'>
+        <div className='justify-center items-center mt-4 mx-auto px-2'>
             {collections?.map((collection, index) => (
                 <Collection key={index} collection={collection}/>
             ))}

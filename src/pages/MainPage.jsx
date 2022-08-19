@@ -34,29 +34,29 @@ const MainPage = () => {
 
     return (
         <div className="max-w-[900px] mx-auto py-10">
-            <div className="flex justify-between gap-8">
+            <div className="flex justify-between gap-8 md:flex-row">
                 <div className="flex flex-col gap-10 bases-4/5">
                     {collections?.map((collection, index) => (
                         <Collection key={index} collection={collection}/>
                     ))}
                 </div>
-                <div className="max-w-[280px] bases-1/5">
-                    <div className='text-lg text-black'>
+                <div className="max-w-[280px] bases-1/5 text-black">
+                    <div className='text-lg'>
                         Top {fiveBiggestCollection.length} collections based on items count:
                     </div>
                     {fiveBiggestCollection?.map((collection, index) => (
                         <CollectionInTop key={index} collection={collection}/>
                     ))}
-                    <div className='text-lg text-black'>
+                    <div className='text-lg'>
                         Tag cloud
-                        <TagCloud
-                            minSize={10}
-                            maxSize={30}
-                            tags={data}
-                            onClick={tag => toast(`'${tag.value}' was selected!`)}
-                        />
+                        {/*{<TagCloud*/}
+                        {/*    minSize={10}*/}
+                        {/*    maxSize={30}*/}
+                        {/*    tags={data}*/}
+                        {/*    onClick={tag => toast(`'${tag.value}' was selected!`)}*/}
+                        {/*/>}*/}
                     </div>
-                    <div className='text-lg text-black'>
+                    <div className='text-lg'>
                         Last n items:
                     </div>
                 </div>

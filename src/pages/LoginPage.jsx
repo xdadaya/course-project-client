@@ -26,7 +26,7 @@ const LoginPage = () => {
     }
 
     return (
-        <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40">
+        <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40 px-2">
             <h1 className="text-xl text-white text-center">Авторизация</h1>
             <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username"
                    className="mt-1 text-black w-full rounded-lg bg-gray-200 border py-1.5 px-2 text-m text-center"/>

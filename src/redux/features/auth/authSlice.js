@@ -39,12 +39,13 @@ export const loginUser = createAsyncThunk('auth/loginUser', async ({username, pa
 })
 
 export const getUser = createAsyncThunk('auth/loginUser', async () => {
+    if(window.localStorage.getItem('token')){
     try {
         const {data} = await axios.get('/auth/getuser')
         return data
     } catch (e) {
         console.log('auth failed')
-    }
+    }}
 })
 
 export const authSlice = createSlice({

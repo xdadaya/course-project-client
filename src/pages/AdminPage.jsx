@@ -6,11 +6,11 @@ import {checkIsAdmin} from "../redux/features/auth/authSlice";
 import moment from "moment";
 
 const columns = [
-    {field: 'id', headerName: 'ID', width: 300},
-    {field: 'username', headerName: 'Username', width: 150},
+    {field: 'id', headerName: 'ID', type: 'string', width: 300},
+    {field: 'username', headerName: 'Username', type: 'string', width: 150},
     {field: 'isAdmin', headerName: 'Admin', type: 'boolean', width: 150},
     {field: 'isBanned', headerName: 'Banned', type: 'boolean', width: 110},
-    {field: 'createdAt', headerName: 'Create date', width: 170,
+    {field: 'createdAt', headerName: 'Create date', type: 'string', width: 170,
         valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A"),},
 ];
 
@@ -21,26 +21,26 @@ const AdminPage = () => {
 
     function CustomToolbar() {
         return (
-            <GridToolbarContainer>
-                <div className="flex gap-5 px-3">
-                    <button onClick={() => btnClickHandler(blockUsers)}
-                            className="items-center rounded-sm opacity-0.6 transition-0.3 bg-gray-300 py-2 px-3">
+            <GridToolbarContainer className="justify-center">
+                <div className="inline-flex rounded-md shadow-sm align-center" role="group">
+                    <button type="button" onClick={() => btnClickHandler(blockUsers)}
+                            className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                         Block
                     </button>
-                    <button onClick={() => btnClickHandler(unblockUsers)}
-                            className="items-center rounded-sm opacity-0.6 transition-0.3 bg-gray-300 py-2 px-3">
+                    <button type="button" onClick={() => btnClickHandler(unblockUsers)}
+                            className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                         Unblock
                     </button>
-                    <button onClick={() => btnClickHandler(setAdminUsers)}
-                            className="items-center rounded-sm opacity-0.6 transition-0.3 bg-gray-300 py-2 px-3">
+                    <button type="button" onClick={() => btnClickHandler(setAdminUsers)}
+                            className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                         Set admin
                     </button>
-                    <button onClick={() => btnClickHandler(removeAdminUsers)}
-                            className="items-center rounded-sm opacity-0.6 transition-0.3 bg-gray-300 py-2 px-3">
+                    <button type="button" onClick={() => btnClickHandler(removeAdminUsers)}
+                            className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                         Remove admin
                     </button>
-                    <button onClick={() => btnClickHandler(deleteUsers)}
-                            className="items-center rounded-sm opacity-0.6 transition-0.3 bg-gray-300 py-2 px-3">
+                    <button type="button" onClick={() => btnClickHandler(deleteUsers)}
+                            className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                         Delete
                     </button>
                 </div>
@@ -71,7 +71,7 @@ const AdminPage = () => {
 
     return (
         <div style={{height: 400}} className="w-fit-content px-3">
-            <DataGrid
+            <DataGrid className="dark:text-white"
                 rows={users}
                 columns={columns}
                 checkboxSelection
