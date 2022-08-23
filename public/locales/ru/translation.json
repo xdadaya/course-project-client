@@ -1,0 +1,47 @@
+{
+  "return": "Назад",
+  "edit": "Изменить",
+  "delete": "Удалить",
+  "save": "Сохранить",
+  "navbar": {
+    "createCollection": "Создать коллекцию",
+    "myCollections": "Мои коллекции",
+    "adminPanel": "Панель администратора",
+    "logout": "Выйти",
+    "login": "Войти"
+  },
+  "adminPage": {
+    "block": "Заблокировать",
+    "unblock": "Разблокировать",
+    "setAdmin": "Сделать администратором",
+    "removeAdmin": "Забрать права администратора",
+    "delete": "Удалить",
+    "username": "Имя пользователя",
+    "admin": "Администратор",
+    "banned": "Забанен",
+    "createDate": "Дата создания"
+  },
+  "collectionCreatePage": {
+    "picUpload1": "Нажмите чтобы загрузить",
+    "picUpload2": "или перетяните ",
+    "picUpload3": "SVG, PNG, JPG или GIF (МАКС. 800x400пикс)",
+    "collectionName": "Название коллекции:",
+    "collectionTheme": "Тема коллекции:",
+    "collectionDescription": "Описание коллекции:",
+    "collectionCreate":"Создать коллекцию"
+  },
+  "login": {
+    "authorization": "Авторизация",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "signin": "Войти",
+    "createAnAccount": "Создать аккаунт?"
+  },
+  "registration": {
+    "registration": "Регистрация",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "signUp": "Зарегистрироваться",
+    "haveAnAccount": "Есть аккаунт?"
+  }
+}

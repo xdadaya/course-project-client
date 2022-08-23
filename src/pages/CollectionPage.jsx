@@ -7,6 +7,7 @@ import {deleteCollection} from "../redux/features/collection/collectionSlice";
 import {toast} from "react-toastify";
 import {ThemeContext} from "../components/ThemeContext";
 import MDEditor from '@uiw/react-md-editor';
+import {useTranslation} from "react-i18next";
 
 const CollectionPage = () => {
     const { theme, setTheme } = React.useContext(ThemeContext);
@@ -15,6 +16,7 @@ const CollectionPage = () => {
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     const fetchCollection = useCallback(async () => {
         const {data} = await axios.get(`/collection/${params.id}`)
@@ -84,10 +86,12 @@ const CollectionPage = () => {
                         {(user?._id === collection.author || user?.isAdmin) && (
                             <div className='flex gap-5 ml-auto mt-2'>
                                 <button type="button" onClick={updateCollectionHandler}
-                                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"> Update
+                                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                    {t("edit")}
                                 </button>
                                 <button type="button" onClick={removeCollectionHandler}
-                                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"> Delete
+                                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                    {t("delete")}
                                 </button>
                             </div>
                         )

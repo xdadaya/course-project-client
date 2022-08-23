@@ -1,0 +1,47 @@
+{
+  "return": "Return",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "navbar": {
+    "createCollection": "Create collection",
+    "myCollections": "My collections",
+    "adminPanel": "Admin panel",
+    "logout": "Log out",
+    "login": "Login"
+  },
+  "adminPage": {
+    "block": "Block",
+    "unblock": "Unblock",
+    "setAdmin": "Set admin",
+    "removeAdmin": "Remove admin",
+    "delete": "Delete",
+    "username": "Username",
+    "admin": "Admin",
+    "banned": "Banned",
+    "createDate": "Create date"
+  },
+  "collectionCreatePage": {
+    "picUpload1": "Click to upload",
+    "picUpload2": "or drag and drop ",
+    "picUpload3": "SVG, PNG, JPG or GIF (MAX. 800x400px)",
+    "collectionName": "Collection name:",
+    "collectionTheme": "Collection theme:",
+    "collectionDescription": "Collection description:",
+    "collectionCreate":"Create collection"
+  },
+  "login": {
+    "authorization": "Authorization",
+    "username": "Username",
+    "password": "Password",
+    "signin": "Sign in",
+    "createAnAccount": "Create an account?"
+  },
+  "registration": {
+    "registration": "Authorization",
+    "username": "Username",
+    "password": "Password",
+    "signUp": "Sign up",
+    "haveAnAccount": "Have an account?"
+  }
+}

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "../utils/axios";
 import Collection from "../components/Collection";
+import BCollection from "../components/BCollection";
 const UsersCollectionsPage = () => {
     const [collections, setCollections] = useState([])
 
@@ -24,10 +25,12 @@ const UsersCollectionsPage = () => {
     }
 
     return (
-        <div className='mx-auto max-w-xl px-3'>
-            {collections?.map((collection, index) => (
-                <Collection key={index} collection={collection}/>
-            ))}
+        <div className="bcontainer bcontainer_width_1400 mt-5">
+            <div className="stories-block  stories-block__4x">
+                {collections?.map((collection, index) => (
+                    <BCollection key={index} collection={collection} isVertical={true}/>
+                ))}
+            </div>
         </div>
     );
 };

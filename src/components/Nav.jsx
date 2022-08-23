@@ -3,14 +3,20 @@ import {Navbar} from "flowbite-react";
 import {useDispatch, useSelector} from "react-redux";
 import {checkIsAdmin, checkIsAuth, logout} from "../redux/features/auth/authSlice";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Toggle from "./ThemeToggle";
+import {useTranslation} from "react-i18next";
 
 const Nav = () => {
     const isAuth = useSelector(checkIsAuth)
     const isAdmin = useSelector(checkIsAdmin)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {t, i18n} = useTranslation()
+
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language)
+    }
 
     const logoutHandler = () => {
         dispatch(logout())
@@ -21,30 +27,36 @@ const Nav = () => {
 
     return (
         <Navbar>
-            <Navbar.Brand href='/'>
-                <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Logo"/>
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                    Home page
+            <Navbar.Brand>
+                <Link to="/" className={"flex align-center"}>
+                    <img src="https://hotemoji.com/images/dl/7/memo-emoji-by-twitter.png" className="mr-3 h-6 sm:h-9"
+                         alt="Logo"/>
+                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                    I Have It!
                 </span>
-            </Navbar.Brand>
-            <div className='flex items-center justify-center gap-10'>
+                </Link>
                 <Toggle/>
-                <Navbar.Toggle/>
-                <Navbar.Collapse>
-                    {isAuth && <Navbar.Link href="/create-collection"> Create collection </Navbar.Link>}
-                    {isAuth && <Navbar.Link href="/users-collections"> My collections </Navbar.Link>}
-                    {isAdmin && <Navbar.Link href="/admin-panel"> Admin panel </Navbar.Link>}
-                    {!isAuth && <Navbar.Link href="/login"> Login </Navbar.Link>}
-                    {isAuth &&
-                        // <button type="button" onClick={logoutHandler}
-                        //         className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                        //     Log out
-                        // </button>
-                        <Navbar.Link onClick={logoutHandler} style={{cursor: 'pointer'}}> Log out </Navbar.Link>
+                <button onClick={() => changeLanguage("en")}>EN</button>
+                <button onClick={() => changeLanguage("ru")}>RU</button>
 
-                    }
-                </Navbar.Collapse>
-            </div>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+            <Navbar.Collapse>
+                {isAuth && <Navbar.Link href="/create-collection"> {t("navbar.createCollection")} </Navbar.Link>}
+                {isAuth && <Navbar.Link href="/users-collections"> {t("navbar.myCollections")} </Navbar.Link>}
+                {isAdmin && <Navbar.Link href="/admin-panel"> {t("navbar.adminPanel")} </Navbar.Link>}
+                {!isAuth &&
+                    <Navbar.Link href="/login">
+                        <button
+                            className={"text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"}
+                            style={{width: "100%"}}>{t("navbar.login")}
+                        </button>
+                    </Navbar.Link>
+                }
+                {isAuth &&
+                    <Navbar.Link onClick={logoutHandler} style={{cursor: 'pointer'}}> {t("navbar.logout")} </Navbar.Link>
+                }
+            </Navbar.Collapse>
         </Navbar>
 
     );

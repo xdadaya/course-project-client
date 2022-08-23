@@ -42,8 +42,10 @@ export const getUser = createAsyncThunk('auth/loginUser', async () => {
     if(window.localStorage.getItem('token')){
     try {
         const {data} = await axios.get('/auth/getuser')
+        if(!data.token) window.localStorage.removeItem('token')
         return data
     } catch (e) {
+        window.localStorage.removeItem('token')
         console.log('auth failed')
     }}
 })

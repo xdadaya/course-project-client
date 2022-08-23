@@ -4,44 +4,47 @@ import {useDispatch, useSelector} from "react-redux";
 import {blockUsers, getUsers, removeAdminUsers, setAdminUsers, unblockUsers, deleteUsers} from "../redux/features/users/usersSlice";
 import {checkIsAdmin} from "../redux/features/auth/authSlice";
 import moment from "moment";
-
-const columns = [
-    {field: 'id', headerName: 'ID', type: 'string', width: 300},
-    {field: 'username', headerName: 'Username', type: 'string', width: 150},
-    {field: 'isAdmin', headerName: 'Admin', type: 'boolean', width: 150},
-    {field: 'isBanned', headerName: 'Banned', type: 'boolean', width: 110},
-    {field: 'createdAt', headerName: 'Create date', type: 'string', width: 170,
-        valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A"),},
-];
+import {useTranslation} from "react-i18next";
 
 const AdminPage = () => {
     const dispatch = useDispatch()
     const isAdmin = useSelector(checkIsAdmin)
     const {users} = useSelector(state => state.user)
+    const {t} = useTranslation()
+
+    const columns = [
+        {field: 'id', headerName: 'ID', type: 'string', width: 300},
+        {field: 'username', headerName: 'Username', type: 'string', width: 150},
+        {field: 'isAdmin', headerName: 'Admin', type: 'boolean', width: 150},
+        {field: 'isBanned', headerName: 'Banned', type: 'boolean', width: 110},
+        {field: 'createdAt', headerName: 'Create date', type: 'string', width: 170,
+            valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A"),},
+    ];
+
 
     function CustomToolbar() {
         return (
             <GridToolbarContainer className="justify-center">
-                <div className="inline-flex rounded-md shadow-sm align-center" role="group">
+                <div className="flex-wrap rounded-md shadow-sm align-center" role="group">
                     <button type="button" onClick={() => btnClickHandler(blockUsers)}
                             className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                        Block
+                        {t("adminPage.block")}
                     </button>
                     <button type="button" onClick={() => btnClickHandler(unblockUsers)}
                             className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                        Unblock
+                        {t("adminPage.unblock")}
                     </button>
                     <button type="button" onClick={() => btnClickHandler(setAdminUsers)}
                             className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                        Set admin
+                        {t("adminPage.setAdmin")}
                     </button>
                     <button type="button" onClick={() => btnClickHandler(removeAdminUsers)}
                             className="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                        Remove admin
+                        {t("adminPage.removeAdmin")}
                     </button>
                     <button type="button" onClick={() => btnClickHandler(deleteUsers)}
                             className="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                        Delete
+                        {t("adminPage.delete")}
                     </button>
                 </div>
             </GridToolbarContainer>
