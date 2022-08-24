@@ -1,8 +1,1 @@
-const backendProtocol = 'http'
-const backendAddress = '192.168.31.20'
-const backendPort = '5000'
-
-let backendUrl = `${backendProtocol}://${backendAddress}`
-if (backendPort){
-    backendUrl = backendUrl + `:${backendPort}`
-}
+export const API_URL = `https://server-for-project.herokuapp.com/`

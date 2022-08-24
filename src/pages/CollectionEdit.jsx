@@ -7,6 +7,7 @@ import MDEditor from '@uiw/react-md-editor';
 import {ThemeContext} from "../components/ThemeContext";
 import Select from "react-select";
 import {useTranslation} from "react-i18next";
+import {API_URL} from "../config";
 
 const CollectionEdit = () => {
     const { theme, setTheme } = React.useContext(ThemeContext);
@@ -108,7 +109,7 @@ const CollectionEdit = () => {
                     </div>
                     <div className='flex object-cover py-2 items-center justify-center'>
                         {oldImage &&
-                            <img src={`${process.env.REACT_APP_API_URL}${oldImage}`} alt={oldImage.name}/>
+                            <img src={`${API_URL}${oldImage}`} alt={oldImage.name}/>
                         }
                         {newImage && (
                             <img

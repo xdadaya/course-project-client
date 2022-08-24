@@ -7,6 +7,7 @@ import {deleteCollection} from "../redux/features/collection/collectionSlice";
 import {ThemeContext} from "../components/ThemeContext";
 import MDEditor from '@uiw/react-md-editor';
 import {useTranslation} from "react-i18next";
+import {API_URL} from "../config";
 
 const CollectionPage = () => {
     const { theme } = React.useContext(ThemeContext);
@@ -62,11 +63,11 @@ const CollectionPage = () => {
                         className="flex flex-col dark:bg-gray-600 p-1 rounded-md hover:scale-105 border dark:border-gray-700">
                         <div className={collection.imgUrl ? 'flex rouded-sm h-80' : 'flex rounded-sm'}>
                             {collection.imgUrl && (
-                                <img src={`${process.env.REACT_APP_API_URL}${collection.imgUrl}`}
+                                <img src={`${API_URL}${collection.imgUrl}`}
                                      alt='img' className='object-cover w-full'/>
                             )}
                             {!collection.imgUrl && (
-                                <img src={`${process.env.REACT_APP_API_URL}default.jfif`}
+                                <img src={`${API_URL}default.jfif`}
                                      alt='img' className='object-cover w-full'/>
                             )}
                         </div>
