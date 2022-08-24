@@ -27,6 +27,8 @@ const LoginPage = () => {
         }
     }
 
+    console.log(process.env.REACT_APP_API_URL)
+
     return (
         <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40 px-2 text-black dark:text-white">
             <h1 className="text-xl text-center mb-10">🔑 {t("login.authorization")}</h1>
