@@ -18,7 +18,8 @@ export const getUsers = createAsyncThunk('users/getUsers', async() => {
 
 export const blockUsers = async(ids) => {
     try{
-        await axios.post('/users/block', {ids})
+        const {data} = await axios.post('/users/block', {ids})
+        toast(data.message)
     } catch (e) {
         toast(e.response.data.message)
     }
@@ -26,7 +27,8 @@ export const blockUsers = async(ids) => {
 
 export const unblockUsers = async(ids) => {
     try{
-        await axios.post('/users/unblock', {ids})
+        const {data} = await axios.post('/users/unblock', {ids})
+        toast(data.message)
     } catch (e) {
         toast(e.response.data.message)
     }
@@ -34,7 +36,8 @@ export const unblockUsers = async(ids) => {
 
 export const setAdminUsers = async(ids) => {
     try{
-        await axios.post('/users/setadmin', {ids})
+        const {data} = await axios.post('/users/setadmin', {ids})
+        toast(data.message)
     } catch (e) {
         toast(e.response.data.message)
     }
@@ -42,7 +45,8 @@ export const setAdminUsers = async(ids) => {
 
 export const removeAdminUsers = async(ids) => {
     try{
-        await axios.post('/users/removeadmin', {ids})
+        const {data} = await axios.post('/users/removeadmin', {ids})
+        toast(data.message)
     } catch (e) {
         toast(e.response.data.message)
     }
@@ -50,7 +54,8 @@ export const removeAdminUsers = async(ids) => {
 
 export const deleteUsers = async(ids) => {
     try{
-        await axios.post('/users/delete', {ids})
+        const {data} = await axios.post('/users/delete', {ids})
+        toast(data.message)
     } catch (e) {
         toast(e.response.data.message)
     }

@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
+import {toast} from "react-toastify";
 
 const initialState = {
     collections: [],
@@ -18,14 +19,15 @@ export const createCollection = createAsyncThunk('collection/createCollection', 
 
 export const deleteCollection = createAsyncThunk('collection/deleteCollection', async(id) =>{
     try{
-        const {data} = axios.delete(`/collection/${id}`, id)
+        const {data} = await axios.delete(`/collection/${id}`, id)
+        toast(data.message)
         return data
     } catch (e) {
         console.log(e)
     }
 })
 
-export const updateCollection = createAsyncThunk('collection/deleteCollection', async(params) => {
+export const updateCollection = createAsyncThunk('collection/updateCollection', async(params) => {
     try{
         const {data} = await axios.put(`/collection/${params.id}`, params)
         return data

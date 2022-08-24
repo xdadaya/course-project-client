@@ -4,13 +4,12 @@ import axios from "../utils/axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {deleteCollection} from "../redux/features/collection/collectionSlice";
-import {toast} from "react-toastify";
 import {ThemeContext} from "../components/ThemeContext";
 import MDEditor from '@uiw/react-md-editor';
 import {useTranslation} from "react-i18next";
 
 const CollectionPage = () => {
-    const { theme, setTheme } = React.useContext(ThemeContext);
+    const { theme } = React.useContext(ThemeContext);
     const [collection, setCollection] = useState([])
     const {user} = useSelector(state => state.auth)
     const params = useParams()
@@ -31,7 +30,6 @@ const CollectionPage = () => {
         try {
             dispatch(deleteCollection(params.id))
             navigate('/')
-            toast('Collection was deleted')
         } catch (e) {
             console.log(e)
         }
@@ -64,11 +62,11 @@ const CollectionPage = () => {
                         className="flex flex-col dark:bg-gray-600 p-1 rounded-md hover:scale-105 border dark:border-gray-700">
                         <div className={collection.imgUrl ? 'flex rouded-sm h-80' : 'flex rounded-sm'}>
                             {collection.imgUrl && (
-                                <img src={`http://192.168.31.20:5000/${collection.imgUrl}`}
+                                <img src={`${process.env.REACT_APP_API_URL}${collection.imgUrl}`}
                                      alt='img' className='object-cover w-full'/>
                             )}
                             {!collection.imgUrl && (
-                                <img src={`http://192.168.31.20:5000/default.jfif`}
+                                <img src={`${process.env.REACT_APP_API_URL}default.jfif`}
                                      alt='img' className='object-cover w-full'/>
                             )}
                         </div>

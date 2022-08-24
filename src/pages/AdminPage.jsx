@@ -12,12 +12,17 @@ const AdminPage = () => {
     const {users} = useSelector(state => state.user)
     const {t} = useTranslation()
 
+    const username = t("adminPage.username")
+    const admin = t("adminPage.admin")
+    const banned = t("adminPage.banned")
+    const createDate = t("adminPage.createDate")
+
     const columns = [
         {field: 'id', headerName: 'ID', type: 'string', width: 300},
-        {field: 'username', headerName: 'Username', type: 'string', width: 150},
-        {field: 'isAdmin', headerName: 'Admin', type: 'boolean', width: 150},
-        {field: 'isBanned', headerName: 'Banned', type: 'boolean', width: 110},
-        {field: 'createdAt', headerName: 'Create date', type: 'string', width: 170,
+        {field: 'username', headerName: username, type: 'string', width: 150},
+        {field: 'isAdmin', headerName: admin, type: 'boolean', width: 150},
+        {field: 'isBanned', headerName: banned, type: 'boolean', width: 110},
+        {field: 'createdAt', headerName: createDate, type: 'string', width: 170,
             valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A"),},
     ];
 
@@ -73,7 +78,7 @@ const AdminPage = () => {
     }
 
     return (
-        <div style={{height: 400}} className="w-fit-content px-3">
+        <div style={{height: "90vh"}} className="px-3">
             <DataGrid className="dark:text-white"
                 rows={users}
                 columns={columns}

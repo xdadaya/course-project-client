@@ -108,7 +108,7 @@ const CollectionEdit = () => {
                     </div>
                     <div className='flex object-cover py-2 items-center justify-center'>
                         {oldImage &&
-                            <img src={`http://localhost:5000/${oldImage}`} alt={oldImage.name}/>
+                            <img src={`${process.env.REACT_APP_API_URL}${oldImage}`} alt={oldImage.name}/>
                         }
                         {newImage && (
                             <img

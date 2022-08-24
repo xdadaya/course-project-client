@@ -10,6 +10,10 @@
     "logout": "Log out",
     "login": "Login"
   },
+  "mainPage": {
+    "biggest": "biggest collections based on items amount.",
+    "tagCloud": "Tag cloud"
+  },
   "adminPage": {
     "block": "Block",
     "unblock": "Unblock",

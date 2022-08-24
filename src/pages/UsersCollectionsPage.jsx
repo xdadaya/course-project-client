@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from "../utils/axios";
-import Collection from "../components/Collection";
 import BCollection from "../components/BCollection";
+
 const UsersCollectionsPage = () => {
     const [collections, setCollections] = useState([])
-
     const fetchUsersCollections = async () => {
         try{
             const { data } = await axios.get('/collection/user-posts')

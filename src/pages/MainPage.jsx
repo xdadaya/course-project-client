@@ -1,24 +1,27 @@
-import React, {useEffect} from 'react';
-import Collection from "../components/Collection";
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllCollections} from "../redux/features/collection/collectionSlice";
 import CollectionInTop from "../components/CollectionInTop";
 import {TagCloud} from 'react-tagcloud'
 import {toast} from "react-toastify";
 import BCollection from "../components/BCollection";
+import {useTranslation} from "react-i18next";
 
 const MainPage = () => {
     const dispatch = useDispatch()
     const {collections, fiveBiggestCollection} = useSelector(state => state.collection)
+    const [msg, setMsg] = useState('Loading...')
+    const {t} = useTranslation()
 
     useEffect(() => {
         dispatch(getAllCollections())
-    }, [dispatch])
+        if (collections.length === 0) setMsg('No collections')
+    }, [dispatch, collections.length])
 
     if (collections.length === 0) {
         return (
             <div className='text-xl text-center text-black py-10'>
-                Loading...
+                {msg}
             </div>
         )
     }
@@ -34,43 +37,35 @@ const MainPage = () => {
     ]
 
     return (
-        <div className="bcontainer bcontainer_width_1400 mt-5">
-            <div className="stories-block  stories-block__4x">
-                {collections?.map((collection, index) => (
-                    <BCollection key={index} collection={collection} isVertical={true}/>
-                ))}
+        <div className='flex-nowrap sm:flex-wrap sm:flex px-2 py-5'>
+            <div className='max-w-sm sm:w-full mx-auto text-black dark:text-white text-lg text-center '>
+                <div className='mb-5'>
+                    {fiveBiggestCollection.length} {t("mainPage.biggest")}
+                    {fiveBiggestCollection?.map((collection, index) => (
+                        <CollectionInTop key={index} collection={collection} isVertical={true}/>
+                    ))}
+                </div>
+                <div className='mb-5'>
+                    {t("mainPage.tagCloud")}
+                <TagCloud
+                    minSize={10}
+                    maxSize={30}
+                    tags={data}
+                    onClick={tag => toast(`'${tag.value}' was selected!`)}
+                />
+                </div>
+            </div>
+            <div className='sm:w-full'>
+                <div className="bcontainer bcontainer_width_1400">
+                    <div className="stories-block  stories-block__4x">
+                        {collections?.map((collection, index) => (
+                            <BCollection key={index} collection={collection} isVertical={true}/>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
 };
 
 export default MainPage;
-
-/*
-<div className={"mt-10"}>
-            <div className="stories-block w-1/2 m-auto">
-                <BCollection collection={{title: "123", theme:"123", description: "dsadasdfasdf afsd fas dfasd aasdf af ad fadfsdf ads asdfas fadsfasdas"}} isVertical={false}/>
-            </div>
-            <div className="stories-block  stories-block__4x">
-                <BCollection collection={{title: "123", theme:"123", description: "dsadas"}} isVertical={false}/>
-                <BCollection collection={{title: "123", theme:"123", description: "dsadas"}} isVertical={false}/>
-                <BCollection collection={{title: "123", theme:"123", description: "dsadas"}} isVertical={false}/>
-            </div>
-
-
-            <div className="stories-block stories-block__4x">
-                <div className="stories-block__header">
-                    <h1><a href="/notes/">📚Книги</a></h1>
-                    <h2>О книгах и не только</h2>
-                </div>
-                <div className="bcontainer bcontainer_width_1400 mt-5">
-                    <div className="stories-block  stories-block__4x">
-                        {collections?.map((collection, index) => (
-                            <BCollection key={index} collection={collection} isVertical={true}/>
-
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
- */
