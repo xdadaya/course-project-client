@@ -3,6 +3,9 @@
   "edit": "Изменить",
   "delete": "Удалить",
   "save": "Сохранить",
+  "fromCollection": "из коллекции",
+  "with": "с",
+  "items": "предметами",
   "navbar": {
     "createCollection": "Создать коллекцию",
     "myCollections": "Мои коллекции",
@@ -12,6 +15,7 @@
   },
   "mainPage": {
     "biggest": "самых больших коллекций по числу предметов.",
+    "lastItems": "последних предметов.",
     "tagCloud": "Облако тегов"
   },
   "adminPage": {

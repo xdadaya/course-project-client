@@ -6,11 +6,10 @@ import MDEditor from "@uiw/react-md-editor";
 import {ThemeContext} from "../components/ThemeContext";
 import axios from "../utils/axios";
 import Select from 'react-select';
-import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 
 const CollectionCreate = () => {
-    const {theme, setTheme} = React.useContext(ThemeContext);
+    const { theme } = React.useContext(ThemeContext);
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')

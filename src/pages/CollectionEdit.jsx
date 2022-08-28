@@ -10,7 +10,7 @@ import {useTranslation} from "react-i18next";
 import {API_URL} from "../config";
 
 const CollectionEdit = () => {
-    const { theme, setTheme } = React.useContext(ThemeContext);
+    const { theme } = React.useContext(ThemeContext);
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')

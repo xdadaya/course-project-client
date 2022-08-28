@@ -8,11 +8,16 @@ import {ThemeContext} from "../components/ThemeContext";
 import MDEditor from '@uiw/react-md-editor';
 import {useTranslation} from "react-i18next";
 import {API_URL} from "../config";
+import {DataGrid} from "@mui/x-data-grid";
+import moment from "moment";
+import {deleteItemInCollection, dislikeItem, getItemsByCollectionId, likeItem} from "../redux/features/item/itemSlice";
+import {AiOutlineLike, AiFillLike} from "react-icons/ai";
 
 const CollectionPage = () => {
-    const { theme } = React.useContext(ThemeContext);
+    const {theme} = React.useContext(ThemeContext);
     const [collection, setCollection] = useState([])
     const {user} = useSelector(state => state.auth)
+    const {items} = useSelector(state => state.item)
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -23,9 +28,72 @@ const CollectionPage = () => {
         setCollection(data)
     }, [params.id])
 
+    const columns = [
+        {
+            field: 'id', headerName: 'ID', type: 'string', width: 300,
+            renderCell: (params) => (
+                <Link to={`/item/${params.value}`}>{params.value}</Link>
+            )
+        },
+        {
+            field: 'title', headerName: 'Title', type: 'string', width: 150
+        },
+        {
+            field: 'createdAt', headerName: 'createDate', type: 'string', width: 170,
+            valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm"),
+        },
+        {
+            field: 'likes', headerName: 'Like', align: 'left', width: 100,
+            renderCell: (params) => (
+                <p className='flex items-center text-xl justify-between'>
+                    {params.value.length}
+                    <div hidden={!user}>{params.value.includes(user?._id) ?
+                        <AiFillLike onClick={() => removeLikeHandler(params.id)}/> :
+                        <AiOutlineLike onClick={() => likeHandler(params.id)}/>
+                    }</div>
+                </p>
+            )
+        },
+        {
+            field: 'buttonDelete', headerName: 'Button', hide: !(user?._id === collection.author || user?.isAdmin),
+            renderCell: (cellValues) => (
+                <button type="button" onClick={() => deleteItemHandler(cellValues.id)}
+                        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    Delete
+                </button>
+            )
+        }
+
+    ];
+
+    const likeHandler = (id) => {
+        try {
+            dispatch(likeItem({id}))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const removeLikeHandler = (id) => {
+        try {
+            dispatch(dislikeItem({id}))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const deleteItemHandler = (id) => {
+        try {
+            dispatch(deleteItemInCollection(id))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         fetchCollection()
-    }, [fetchCollection])
+        dispatch(getItemsByCollectionId(params.id))
+    }, [fetchCollection, dispatch])
 
     const removeCollectionHandler = () => {
         try {
@@ -49,7 +117,7 @@ const CollectionPage = () => {
     }
 
     return (
-        <div className="py-3 px-2 text-black dark:text-white" data-color-mode={theme}>
+        <div className="text-black dark:text-white mt-2" data-color-mode={theme}>
             <Link to={'/'}>
                 <button type="button"
                         className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
@@ -57,8 +125,8 @@ const CollectionPage = () => {
                 </button>
             </Link>
 
-            <div className="flex justify-center items-center py-3 max-w-[400px]">
-                <div className="flex items-center justify-center max-w-[360px] mx-2">
+            <div className='flex-nowrap mx-auto sm:flex-wrap sm:flex px-2 py-5'>
+                <div className="max-w-sm sm:w-full text-lg text-center">
                     <div
                         className="flex flex-col dark:bg-gray-600 p-1 rounded-md hover:scale-105 border dark:border-gray-700">
                         <div className={collection.imgUrl ? 'flex rouded-sm h-80' : 'flex rounded-sm'}>
@@ -84,6 +152,12 @@ const CollectionPage = () => {
                         </div>
                         {(user?._id === collection.author || user?.isAdmin) && (
                             <div className='flex gap-5 ml-auto mt-2'>
+                                <Link to={`/collection/${params.id}/add`}>
+                                    <button type="button"
+                                            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                        Add item
+                                    </button>
+                                </Link>
                                 <button type="button" onClick={updateCollectionHandler}
                                         className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                     {t("edit")}
@@ -95,6 +169,15 @@ const CollectionPage = () => {
                             </div>
                         )
                         }
+                    </div>
+                </div>
+                <div className='w-full sm:w-full'>
+                    <div style={{height: "90vh"}} className="px-3">
+                        <DataGrid className="dark:text-white"
+                                  rows={items}
+                                  columns={columns}
+                                  experimentalFeatures={{newEditingApi: true}}
+                        />
                     </div>
                 </div>
             </div>

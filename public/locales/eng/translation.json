@@ -3,6 +3,9 @@
   "edit": "Edit",
   "delete": "Delete",
   "save": "Save",
+  "fromCollection": "from collection",
+  "with": "with",
+  "items": "items",
   "navbar": {
     "createCollection": "Create collection",
     "myCollections": "My collections",
@@ -11,7 +14,8 @@
     "login": "Login"
   },
   "mainPage": {
-    "biggest": "biggest collections based on items amount.",
+    "biggest": "largest collections by number of items.",
+    "lastItems": "last items.",
     "tagCloud": "Tag cloud"
   },
   "adminPage": {

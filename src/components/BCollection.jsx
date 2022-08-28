@@ -11,7 +11,6 @@ const getBackgroundColor = () => {
 }
 
 const BCollection = ({collection, isVertical}) => {
-    const {theme, setTheme} = React.useContext(ThemeContext);
     if (!collection) {
         return (<div className='text-xl text-center text-black py-10 dark:text-white'>
             Загрузка...

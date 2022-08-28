@@ -6,15 +6,31 @@ import {TagCloud} from 'react-tagcloud'
 import {toast} from "react-toastify";
 import BCollection from "../components/BCollection";
 import {useTranslation} from "react-i18next";
+import axios from "../utils/axios";
+import LastItem from "../components/LastItem";
 
 const MainPage = () => {
     const dispatch = useDispatch()
     const {collections, fiveBiggestCollection} = useSelector(state => state.collection)
     const [msg, setMsg] = useState('Loading...')
+    const [data, setData] = useState([])
+    const [lastItems, setLastItems] = useState([])
     const {t} = useTranslation()
+
+    const fetchTags = async () => {
+        const {data} = await axios.get('/tag/main/')
+        setData(data)
+    }
+
+    const fetchLastItems = async () => {
+        const {data} = await axios.get('/item/')
+        setLastItems(data)
+    }
 
     useEffect(() => {
         dispatch(getAllCollections())
+        fetchTags()
+        fetchLastItems()
         if (collections.length === 0) setMsg('No collections')
     }, [dispatch, collections.length])
 
@@ -26,19 +42,10 @@ const MainPage = () => {
         )
     }
 
-    const data = [
-        {value: 'JavaScript', count: 38},
-        {value: 'React', count: 30},
-        {value: 'Nodejs', count: 1},
-        {value: 'Express.js', count: 25},
-        {value: 'HTML5', count: 33},
-        {value: 'MongoDB', count: 18},
-        {value: 'CSS3', count: 20},
-    ]
 
     return (
-        <div className='flex-nowrap sm:flex-wrap sm:flex px-2 py-5'>
-            <div className='max-w-sm sm:w-full mx-auto text-black dark:text-white text-lg text-center '>
+        <div className='flex-nowrap md:flex-wrap md:flex px-2 py-5'>
+            <div className='max-w-sm md:w-full mx-auto text-black dark:text-white text-lg text-center'>
                 <div className='mb-5'>
                     {fiveBiggestCollection.length} {t("mainPage.biggest")}
                     {fiveBiggestCollection?.map((collection, index) => (
@@ -53,6 +60,12 @@ const MainPage = () => {
                     tags={data}
                     onClick={tag => toast(`'${tag.value}' was selected!`)}
                 />
+                </div>
+                <div className='mb-5'>
+                    {lastItems.length} {t("mainPage.lastItems")}
+                    {lastItems?.map((item, index) => (
+                        <LastItem key={index} item={item}/>
+                    ))}
                 </div>
             </div>
             <div className='sm:w-full'>

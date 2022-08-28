@@ -15,6 +15,7 @@ import {ToastContainer} from "react-toastify";
 import React from 'react'
 import "./output.css";
 import Layout from "./components/Layout";
+import CollectionAddItem from "./pages/CollectionAddItem";
 
 function App() {
     const dispatch = useDispatch()
@@ -31,6 +32,7 @@ function App() {
                     <Route path='/admin-panel' element={<AdminPage/>}/>
                     <Route path='collection/:id' element={<CollectionPage/>}/>
                     <Route path='collection/:id/edit' element={<CollectionEdit/>}/>
+                    <Route path='collection/:id/add' element={<CollectionAddItem/>}/>
                     <Route path='/users-collections' element={<UsersCollectionsPage/>}/>
                 </Routes>
                 <ToastContainer position="bottom-right"/>
