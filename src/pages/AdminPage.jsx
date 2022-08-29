@@ -23,7 +23,7 @@ const AdminPage = () => {
         {field: 'isAdmin', headerName: admin, type: 'boolean', width: 150},
         {field: 'isBanned', headerName: banned, type: 'boolean', width: 110},
         {field: 'createdAt', headerName: createDate, type: 'string', width: 170,
-            valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A"),},
+            valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm"),},
     ];
 
     function CustomToolbar() {

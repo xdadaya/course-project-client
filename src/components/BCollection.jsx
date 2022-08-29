@@ -29,7 +29,7 @@ const BCollection = ({collection, isVertical}) => {
                     <span className="story__title p-name">
                         {collection.title}</span>
                     <div className="clearfix10"></div>
-                    <span className="story__subtitle p-summary"><Moment date={collection.createdAt} format='D MMM YYYY'/></span>
+                    <span className="story__subtitle p-summary"><Moment date={collection.createdAt} format='D MMM YYYY' locale={window.localStorage.getItem('i18nextLng')}/></span>
                 </span>
             </div>
         </Link>);

@@ -19,7 +19,9 @@ const UsersCollectionsPage = () => {
 
     if(collections.length === 0){
         return (
-            <h1 className='text-center dark:text-white py-5'> You haven't created collection yet.</h1>
+            <h1 className='text-center dark:text-white py-5'> You haven't created collection yet. <br/>
+                Wanna <a href='/create-collection'> create </a> it?
+            </h1>
         )
     }
 

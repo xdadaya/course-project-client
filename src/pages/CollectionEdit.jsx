@@ -20,6 +20,9 @@ const CollectionEdit = () => {
     const fontColor = (theme === 'light') ? 'black' : 'white'
     const [themes, setThemes] = useState([])
     const {t} = useTranslation()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const params = useParams()
 
     const fetchThemes = async () => {
         const {data} = await axios.get('/themes')
@@ -29,9 +32,7 @@ const CollectionEdit = () => {
     useEffect(() => {
         fetchThemes()
     }, [])
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const params = useParams()
+
 
     const fetchCollection = useCallback(async () => {
         const {data} = await axios.get(`/collection/${params.id}`)

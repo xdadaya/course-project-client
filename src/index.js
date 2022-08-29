@@ -8,6 +8,7 @@ import {ThemeProvider} from './components/ThemeContext';
 import Background from './components/Background';
 import 'flowbite'
 import './utils/i18next'
+import 'moment/locale/ru';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
