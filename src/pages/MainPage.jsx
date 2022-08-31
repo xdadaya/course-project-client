@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 import axios from "../utils/axios";
 import LastItem from "../components/LastItem";
 import {useNavigate} from "react-router-dom";
+import Loading from "../components/Loading";
 
 const MainPage = () => {
     const dispatch = useDispatch()
