@@ -18,6 +18,7 @@ import Layout from "./components/Layout";
 import CollectionAddItem from "./pages/CollectionAddItem";
 import ItemPage from "./pages/ItemPage";
 import ItemEditPage from "./pages/ItemEditPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
     const dispatch = useDispatch()
@@ -38,6 +39,7 @@ function App() {
                     <Route path='item/:id/edit' element={<ItemEditPage/>}/>
                     <Route path='collection/:id/add' element={<CollectionAddItem/>}/>
                     <Route path='/users-collections' element={<UsersCollectionsPage/>}/>
+                    <Route path='/search/:query' element={<SearchPage/>}/>
                 </Routes>
                 <ToastContainer position="bottom-right"/>
             </Layout>

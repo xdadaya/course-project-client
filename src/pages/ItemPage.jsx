@@ -20,7 +20,7 @@ const ItemPage = () => {
 
     const fetchItem = useCallback(async()=>{
         const {data} = await axios.get(`/item/page/${params.id}`)
-        setItem(data)
+        setItem(data.item)
     }, [params.id])
 
     const fetchTags = useCallback(async()=>{
@@ -65,11 +65,11 @@ const ItemPage = () => {
         <div className="text-black dark:text-white flex-nowrap mx-auto sm:flex-wrap sm:flex px-2 py-5">
             <div className="md:w-full text-lg mx-auto my-2">
                 <div>
-                    Title: {item.title} <br/>
+                    {t("addItemPage.title")}: {item.title} <br/>
                 </div>
 
                 <div className='mt-2 flex flex-wrap align-start'>
-                    Tags:
+                    {t("addItemPage.tags")}:
                     {tags?.map((tag, index) => (
                         <Tag key={index} tag={tag}/>
                     ))}
@@ -79,9 +79,10 @@ const ItemPage = () => {
                 <div className='w-full flex gap-4 justify-between items-center'>
                     <textarea rows="3" value={text} onChange={e => setText(e.target.value)}
                               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder="Leave a comment..."/>
+                              placeholder={t("addItemPage.createComment")}/>
                     <button type="button" onClick={createCommentHandler} disabled={text.length===0}
-                            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"> Comment
+                            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        {t("addItemPage.btnComment")}
                     </button>
                 </div>
                 <div className='w-full gap-4 justify-between items-center mt-2'>

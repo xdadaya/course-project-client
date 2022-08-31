@@ -1,17 +1,28 @@
 {
-  "return": "Назад",
+  "return": "Отмена",
   "edit": "Изменить",
   "delete": "Удалить",
   "save": "Сохранить",
+  "back": "Назад",
+  "addItem": "Добавить предмет",
   "fromCollection": "из коллекции",
   "with": "с",
   "items": "предметами",
+  "search": {
+    "found": "Найдено",
+    "items": "предметов"
+  },
+  "authorizedUserOnly": "Эта страница только для авторизованных пользователей.",
+  "item": {
+    "notOwner": "Эта страница для владельца предмета"
+  },
   "navbar": {
     "createCollection": "Создать коллекцию",
     "myCollections": "Мои коллекции",
     "adminPanel": "Панель администратора",
     "logout": "Выйти",
-    "login": "Войти"
+    "login": "Войти",
+    "search": "Поиск..."
   },
   "mainPage": {
     "biggest": "самых больших коллекций по числу предметов.",
@@ -27,7 +38,8 @@
     "username": "Имя пользователя",
     "admin": "Администратор",
     "banned": "Забанен",
-    "createDate": "Дата создания"
+    "createDate": "Дата создания",
+    "notAdmin": "Эта страница только для администраторов."
   },
   "collectionCreatePage": {
     "picUpload1": "Нажмите чтобы загрузить",
@@ -37,6 +49,23 @@
     "collectionTheme": "Тема коллекции:",
     "collectionDescription": "Описание коллекции:",
     "collectionCreate":"Создать коллекцию"
+  },
+  "collectionPage": {
+    "tableTitle": "Название",
+    "tableDate": "Дата создания",
+    "tableLike": "Лайк",
+    "tableEdit": "Редактировать",
+    "tableDelete": "Удалить"
+  },
+  "addItemPage": {
+    "title": "Название",
+    "titlePlace": "Название",
+    "tags": "Теги",
+    "create": "Создать предмет",
+    "edit": "Изменить предмет",
+    "createComment": "Оставить комментарий",
+    "btnComment": "Отправить",
+    "notOwner": "Эта страница для владельца коллекции"
   },
   "login": {
     "authorization": "Авторизация",

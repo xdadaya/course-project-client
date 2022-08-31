@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createCollection} from "../redux/features/collection/collectionSlice";
 import {useNavigate} from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 
 const CollectionCreate = () => {
     const { theme } = React.useContext(ThemeContext);
+    const {user} = useSelector(state => state.auth)
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')
@@ -67,6 +68,13 @@ const CollectionCreate = () => {
         }
     }
 
+    if(!user){
+        return(
+            <div className='text-xl text-center text-black dark:text-white py-10'>
+                {t("authorizedUserOnly")}
+            </div>
+        )
+    }
 
     return (
         <div className="flex items-center justify-center" data-color-mode={theme}>

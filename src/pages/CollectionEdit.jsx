@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "../utils/axios";
 import {updateCollection} from "../redux/features/collection/collectionSlice";
@@ -11,6 +11,8 @@ import {API_URL} from "../config";
 
 const CollectionEdit = () => {
     const { theme } = React.useContext(ThemeContext);
+    const [collection, setCollection] = useState({})
+    const {user} = useSelector(state => state.auth)
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')
@@ -36,6 +38,7 @@ const CollectionEdit = () => {
 
     const fetchCollection = useCallback(async () => {
         const {data} = await axios.get(`/collection/${params.id}`)
+        setCollection(data)
         setTitle(data.title)
         setDescription(data.description)
         setTextTheme({value: data.theme, label: data.theme})
@@ -80,6 +83,14 @@ const CollectionEdit = () => {
                 console.log(`… file[${i}].name = ${file.name}`);
             });
         }
+    }
+
+    if(!(user?._id === collection.author || user?.isAdmin)){
+        return(
+            <div className='text-xl text-center text-black dark:text-white py-10'>
+                {t("addItemPage.notOwner")}
+            </div>
+        )
     }
 
     return (

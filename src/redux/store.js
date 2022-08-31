@@ -19,7 +19,7 @@ export const store = configureStore({
                 ignoredActions: ['users/getUsers/fulfilled', 'collection/getAllCollections/fulfilled',
                     'collection/createCollection/fulfilled', 'item/getItemsByCollectionId/fulfilled',
                     'item/createItemInCollection/fulfilled', 'comment/getCommentByItemId/fulfilled',
-                    'comment/createComment/fulfilled'
+                    'comment/createComment/fulfilled', 'item/updateItem/fulfilled'
                 ]
             },
         }),

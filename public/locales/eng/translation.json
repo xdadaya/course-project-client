@@ -3,15 +3,26 @@
   "edit": "Edit",
   "delete": "Delete",
   "save": "Save",
+  "back": "Back",
+  "addItem": "Add item",
   "fromCollection": "from collection",
   "with": "with",
   "items": "items",
+  "search": {
+    "found": "Found",
+    "items": "items"
+  },
+  "authorizedUserOnly": "This page is for authorized user only.",
+  "item": {
+    "notOwner": "This page is for items owner"
+  },
   "navbar": {
     "createCollection": "Create collection",
     "myCollections": "My collections",
     "adminPanel": "Admin panel",
     "logout": "Log out",
-    "login": "Login"
+    "login": "Login",
+    "search": "Search..."
   },
   "mainPage": {
     "biggest": "largest collections by number of items.",
@@ -27,7 +38,8 @@
     "username": "Username",
     "admin": "Admin",
     "banned": "Banned",
-    "createDate": "Create date"
+    "createDate": "Create date",
+    "notAdmin": "This page is only for admins."
   },
   "collectionCreatePage": {
     "picUpload1": "Click to upload",
@@ -37,6 +49,23 @@
     "collectionTheme": "Collection theme:",
     "collectionDescription": "Collection description:",
     "collectionCreate":"Create collection"
+  },
+  "collectionPage": {
+    "tableTitle": "Title",
+    "tableDate": "Create date",
+    "tableLike": "Like",
+    "tableEdit": "Edit",
+    "tableDelete": "Delete"
+  },
+  "addItemPage": {
+    "title": "Title",
+    "titlePlace": "Some title",
+    "tags": "Tags",
+    "create": "Create item",
+    "edit": "Edit item",
+    "createComment": "Leave a comment",
+    "btnComment": "Comment",
+    "notOwner": "This page is only for collection owner"
   },
   "login": {
     "authorization": "Authorization",

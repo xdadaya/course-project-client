@@ -70,8 +70,8 @@ const AdminPage = () => {
 
     if (!isAdmin) {
         return (
-            <div className='text-xl text-center text-black py-10'>
-                This page is only for admins.
+            <div className='text-xl text-center text-black dark:text-white py-10'>
+                {t("adminPage.notAdmin")}
             </div>
         )
     }

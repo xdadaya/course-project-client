@@ -25,6 +25,15 @@ export const createItemInCollection = createAsyncThunk('item/createItemInCollect
     }
 })
 
+export const updateItem = createAsyncThunk('item/updateItem', async(params) => {
+    try{
+        const data = await axios.put(`item/${params.id}`, params)
+        return data
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 export const deleteItemInCollection = createAsyncThunk('item/deleteItemInCollection', async(id)=>{
     try{
         const {data} = await axios.delete(`/item/${id}`, id)
@@ -79,6 +88,23 @@ export const ItemSlice = createSlice({
             state.items = [...state.items, action.payload.data]
         },
         [createItemInCollection.rejected]: (state) => {
+            state.isLoading = false
+        },
+
+        //Обновление предмета
+        [updateItem.pending]: (state) => {
+            state.isLoading = true
+        },
+        [updateItem.fulfilled]: (state, action) => {
+            state.isLoading = false
+            const index = state.items.findIndex((item)=>item.id===action.payload.data.id)
+            state.items=[
+                ...state.items.slice(0, index),
+                action.payload.data,
+                ...state.items.slice(index + 1)
+            ]
+        },
+        [updateItem.rejected]: (state) => {
             state.isLoading = false
         },
 

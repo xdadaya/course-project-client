@@ -8,6 +8,7 @@ import BCollection from "../components/BCollection";
 import {useTranslation} from "react-i18next";
 import axios from "../utils/axios";
 import LastItem from "../components/LastItem";
+import {useNavigate} from "react-router-dom";
 
 const MainPage = () => {
     const dispatch = useDispatch()
@@ -16,6 +17,7 @@ const MainPage = () => {
     const [data, setData] = useState([])
     const [lastItems, setLastItems] = useState([])
     const {t} = useTranslation()
+    const navigate = useNavigate()
 
     const fetchTags = async () => {
         const {data} = await axios.get('/tag/main/')
@@ -55,10 +57,10 @@ const MainPage = () => {
                 <div className='mb-5'>
                     {t("mainPage.tagCloud")}
                 <TagCloud
-                    minSize={10}
+                    minSize={20}
                     maxSize={30}
                     tags={data}
-                    onClick={tag => toast(`'${tag.value}' was selected!`)}
+                    onClick={tag => navigate(`/search/${tag.value}`)}
                 />
                 </div>
                 <div className='mb-5'>
