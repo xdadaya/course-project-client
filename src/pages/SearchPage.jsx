@@ -20,7 +20,7 @@ const SearchPage = () => {
 
     return (
         <div className='mx-auto px-3 py-3'>
-            <h1 className='text-center dark:text-white text-2xl'>{t('search.found')} {items.length} {t('search.items')} <br/> {params.query}</h1>
+            <h1 className='text-center dark:text-white text-2xl'>{t('search.found')} {items.length} {t('search.items')} {t('search.onRequest')} '{params.query}'</h1>
 
             {items?.map((item, index) => (
                 <ItemSearch key={index} item={item}/>

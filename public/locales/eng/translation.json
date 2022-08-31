@@ -10,7 +10,8 @@
   "items": "items",
   "search": {
     "found": "Found",
-    "items": "items"
+    "items": "items",
+    "onRequest": "on request"
   },
   "authorizedUserOnly": "This page is for authorized user only.",
   "item": {

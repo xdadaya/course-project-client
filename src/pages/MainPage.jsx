@@ -13,7 +13,6 @@ import {useNavigate} from "react-router-dom";
 const MainPage = () => {
     const dispatch = useDispatch()
     const {collections, fiveBiggestCollection} = useSelector(state => state.collection)
-    const [msg, setMsg] = useState('Loading...')
     const [data, setData] = useState([])
     const [lastItems, setLastItems] = useState([])
     const {t} = useTranslation()
@@ -33,14 +32,11 @@ const MainPage = () => {
         dispatch(getAllCollections())
         fetchTags()
         fetchLastItems()
-        if (collections.length === 0) setMsg('No collections')
-    }, [dispatch, collections.length])
+    }, [dispatch])
 
     if (collections.length === 0) {
         return (
-            <div className='text-xl text-center text-black py-10'>
-                {msg}
-            </div>
+            <Loading />
         )
     }
 

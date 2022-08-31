@@ -27,7 +27,10 @@ const Nav = () => {
     }
 
     const keyDownHandler = (key) => {
-        if(key==='Enter') navigate(`/search/${searchText}`)
+        if(key==='Enter') {
+            navigate(`/search/${searchText}`)
+            setSearchText('')
+        }
     }
 
     return (

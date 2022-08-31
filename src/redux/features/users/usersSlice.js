@@ -66,7 +66,6 @@ export const usersSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        //Получение всех коллекций
         [getUsers.pending]: (state) => {
             state.isLoading = true
         },

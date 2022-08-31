@@ -13,6 +13,7 @@ import moment from "moment";
 import {deleteItemInCollection, dislikeItem, getItemsByCollectionId, likeItem} from "../redux/features/item/itemSlice";
 import {AiOutlineLike, AiFillLike, AiFillEdit, AiFillDelete} from "react-icons/ai";
 import {Box} from "@mui/material";
+import Loading from "../components/Loading";
 
 const CollectionPage = () => {
     const {theme} = React.useContext(ThemeContext);
@@ -37,13 +38,10 @@ const CollectionPage = () => {
 
     const columns = [
         {
-            field: 'id', headerName: 'ID', type: 'string', width: 200,
+            field: 'title', headerName: tableTitle, type: 'string', width: 150,
             renderCell: (params) => (
-                <Link to={`/item/${params.value}`}>{params.value}</Link>
+                <Link to={`/item/${params.id}`}>{params.value}</Link>
             )
-        },
-        {
-            field: 'title', headerName: tableTitle, type: 'string', width: 150
         },
         {
             field: 'createdAt', headerName: tableDate, type: 'string', width: 140,
@@ -128,10 +126,16 @@ const CollectionPage = () => {
         }
     }
 
+    if(!collection){
+        return(
+            <Loading/>
+        )
+    }
+
     if (!collection._id) {
         return (
             <div className='text-xl text-center text-black py-10'>
-                No collection with that id
+                Not found
             </div>
         )
     }
