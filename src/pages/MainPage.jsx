@@ -41,7 +41,6 @@ const MainPage = () => {
         )
     }
 
-
     return (
         <div className='flex-nowrap md:flex-wrap md:flex px-2 py-5'>
             <div className='max-w-sm md:w-full mx-auto text-black dark:text-white text-lg text-center'>
