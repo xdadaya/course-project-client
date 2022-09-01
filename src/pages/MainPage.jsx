@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllCollections} from "../redux/features/collection/collectionSlice";
 import CollectionInTop from "../components/CollectionInTop";
 import {TagCloud} from 'react-tagcloud'
-import {toast} from "react-toastify";
 import BCollection from "../components/BCollection";
 import {useTranslation} from "react-i18next";
 import axios from "../utils/axios";

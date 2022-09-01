@@ -53,7 +53,7 @@ const ItemPage = () => {
         }
     }
 
-    if(!item._id){
+    if(!item){
         return (
             <div className='text-xl text-center text-black py-10'>
                 No item with that id

@@ -17,18 +17,25 @@ import Loading from "../components/Loading";
 
 const CollectionPage = () => {
     const {theme} = React.useContext(ThemeContext);
-    const [collection, setCollection] = useState([])
+    const [collection, setCollection] = useState({})
     const {user} = useSelector(state => state.auth)
     const {items} = useSelector(state => state.item)
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {t} = useTranslation()
+    const [collectionExists, setCollectionExists] = useState(true)
 
     const fetchCollection = useCallback(async () => {
         const {data} = await axios.get(`/collection/${params.id}`)
+        setCollectionExists(!(Boolean(data.message)))
         setCollection(data)
     }, [params.id])
+
+    useEffect(() => {
+        fetchCollection()
+        dispatch(getItemsByCollectionId(params.id))
+    }, [fetchCollection, dispatch])
 
     const tableTitle = t("collectionPage.tableTitle")
     const tableDate = t("collectionPage.tableDate")
@@ -112,10 +119,6 @@ const CollectionPage = () => {
         }
     }
 
-    useEffect(() => {
-        fetchCollection()
-        dispatch(getItemsByCollectionId(params.id))
-    }, [fetchCollection, dispatch])
 
     const removeCollectionHandler = () => {
         try {
@@ -126,22 +129,20 @@ const CollectionPage = () => {
         }
     }
 
-    if(!collection){
-        return(
-            <Loading/>
-        )
-    }
-
-    if (!collection._id) {
-        return (
-            <div className='text-xl text-center text-black py-10'>
-                Not found
-            </div>
-        )
-    }
-
     const updateCollectionHandler = () => {
         navigate(`/collection/${params.id}/edit`)
+    }
+
+
+    if (!collection.title) {
+        if (!collectionExists) {
+            return (
+                <h1 className='text-xl text-center dark:text-white py-10 mx-auto'> No collection with that id</h1>
+            )
+        }
+        return (
+            <Loading/>
+        )
     }
 
     return (
@@ -152,7 +153,6 @@ const CollectionPage = () => {
                     {t("back")}
                 </button>
             </Link>
-
             <div className='flex-nowrap mx-auto sm:flex-wrap sm:flex px-2 py-5'>
                 <div className="max-w-lg sm:w-full text-lg text-center mx-auto">
                     <div
@@ -203,12 +203,12 @@ const CollectionPage = () => {
                 <div className='w-full sm:w-full'>
                     <Box style={{height: "90vh"}} className="px-3">
                         <DataGrid className='dark:text-white'
-                            rows={items}
-                            columns={columns}
-                            experimentalFeatures={{newEditingApi: true}}
-                            sx={{
-                                textColor: 'white'
-                            }}
+                                  rows={items}
+                                  columns={columns}
+                                  experimentalFeatures={{newEditingApi: true}}
+                                  sx={{
+                                      textColor: 'white'
+                                  }}
                         />
                     </Box>
                 </div>
