@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "../utils/axios";
 import {useTranslation} from "react-i18next";
 import ItemSearch from "../components/ItemSearch";
+import Loading from "../components/Loading";
 
 const SearchPage = () => {
     const params = useParams()
@@ -17,6 +18,13 @@ const SearchPage = () => {
     useEffect(() => {
         fetchItems()
     }, [fetchItems])
+
+    if(!items){
+        console.log('asd')
+        return(
+            <Loading/>
+        )
+    }
 
     return (
         <div className='mx-auto px-3 py-3'>

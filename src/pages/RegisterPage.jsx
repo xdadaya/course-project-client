@@ -30,9 +30,11 @@ const RegisterPage = () => {
     return (
         <form onSubmit={e => e.preventDefault()} className="max-w-xl mx-auto mt-40 px-2 text-black dark:text-white">
             <h1 className="text-xl text-center mb-10">👋 {t("registration.registration")}</h1>
-            <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder={t("registration.username")}
+            <input type="text" value={username} onChange={e => setUsername(e.target.value)}
+                   placeholder={t("registration.username")} maxLength='32'
                    className="mt-1 w-full rounded-lg bg-gray-200 dark:bg-gray-800 border py-1.5 px-2 text-m text-center"/>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder={t("registration.password")}
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+                   placeholder={t("registration.password")} maxLength='32'
                    className="mt-3 w-full rounded-lg bg-gray-200 dark:bg-gray-800 border py-1.5 px-2 text-m text-center"/>
             <div className="justify-center items-center flex flex-col md:flex-row mt-4 gap-4">
                 <button type="submit" onClick={handleSubmit}

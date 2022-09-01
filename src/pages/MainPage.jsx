@@ -32,7 +32,7 @@ const MainPage = () => {
         dispatch(getAllCollections())
         fetchTags()
         fetchLastItems()
-    }, [dispatch])
+    }, [dispatch, fetchTags, fetchLastItems])
 
     if (collections.length === 0) {
         return (

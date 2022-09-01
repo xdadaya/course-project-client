@@ -135,7 +135,7 @@ const CollectionEdit = () => {
 
                 <label className='text-s text-gray-400 '>
                     {t("collectionCreatePage.collectionName")}
-                    <input type='text' value={title} onChange={(e) => setTitle(e.target.value)}
+                    <input type='text' value={title} onChange={(e) => setTitle(e.target.value)} maxLength='32'
                            className='mt-1 text-s text-black w-full rounded-lg bg-gray-300 dark:bg-gray-800 dark:text-white border-1 py-1 px-2 outline-none'/>
                 </label>
 
