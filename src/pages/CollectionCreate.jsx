@@ -7,14 +7,22 @@ import {ThemeContext} from "../components/ThemeContext";
 import axios from "../utils/axios";
 import Select from 'react-select';
 import {useTranslation} from "react-i18next";
+import AdditionalField from "../components/AdditionalField";
+import {addAdditionalField, resetAdditionalField} from "../redux/features/additionalFields/additionalFieldsSlice";
+import {toast} from "react-toastify";
 
 const CollectionCreate = () => {
-    const { theme } = React.useContext(ThemeContext);
+    const {theme} = React.useContext(ThemeContext);
     const {user} = useSelector(state => state.auth)
+    const {fields} = useSelector(state => state.additionalFields)
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
+
+    const [addFieldName, setAddFieldName] = useState('')
+    const [addFieldType, setAddFieldType] = useState('Text')
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const bg = (theme === 'light') ? 'white' : 'rgb(31 41 55)'
@@ -34,11 +42,13 @@ const CollectionCreate = () => {
 
     const submitHandler = () => {
         try {
+            const addfields = JSON.stringify({customFields: fields})
             const data = new FormData()
             data.append('title', title)
             data.append('theme', textTheme.value)
             data.append('description', description)
             data.append('image', image)
+            data.append('additionalFields', addfields)
             dispatch(createCollection(data))
             navigate('/')
         } catch (e) {
@@ -68,8 +78,20 @@ const CollectionCreate = () => {
         }
     }
 
-    if(!user){
-        return(
+
+    const addFieldHandler = () => {
+        dispatch(addAdditionalField({fieldName: addFieldName, fieldType: addFieldType}))
+        setAddFieldName('')
+        setAddFieldType('text')
+    }
+
+    const imageValidate = (image) => {
+        if(["image/jpeg", "image/jfif", "image/gif", "image/png"].includes(image.type) && image.size<2000000) setImage(image)
+        else toast(t("notAPicture"))
+    }
+
+    if (!user) {
+        return (
             <div className='text-xl text-center text-black dark:text-white py-10'>
                 {t("authorizedUserOnly")}
             </div>
@@ -92,11 +114,13 @@ const CollectionCreate = () => {
                                               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                        className="font-semibold">{t("collectionCreatePage.picUpload1")}</span> {t("collectionCreatePage.picUpload2")}</p>
+                                        className="font-semibold">{t("collectionCreatePage.picUpload1")}</span> {t("collectionCreatePage.picUpload2")}
+                                    </p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400">{t("collectionCreatePage.picUpload3")}</p>
                                 </div>
-                                <input id="dropzone-file" type="file" onChange={(e) => setImage(e.target.files[0])}
-                                       className="hidden" />
+                                <input id="dropzone-file" type="file" accept='.png, .jpg, .gif, .jpeg, .jfif'
+                                       onChange={(e) => imageValidate(e.target.files[0])}
+                                       className="hidden"/>
                             </label>
                         </div>
                     </div>
@@ -140,6 +164,33 @@ const CollectionCreate = () => {
                         onChange={setDescription}
                     />
                 </label>
+
+
+                <p className='text-s text-gray-400'>{t('collectionCreatePage.additionalFields')}</p>
+
+                <label htmlFor="fieldName" className='text-s text-gray-400'>{t("fieldName")}</label>
+                <input id="fieldName" type='text' value={addFieldName} onChange={(e) => setAddFieldName(e.target.value)}
+                       maxLength='32'
+                       className='mt-1 text-black w-full rounded-lg dark:bg-gray-800 dark:text-white border-1  px-2 outline-none'/>
+                <label htmlFor="types" className="text-s text-gray-400">{t("fieldType")}</label>
+                <select id="types" value={addFieldType} onChange={(e) => setAddFieldType(e.target.value)}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>Text</option>
+                    <option>Number</option>
+                    <option>Textarea</option>
+                    <option>CheckBox</option>
+                    <option>Date</option>
+                </select>
+                <button type="button" disabled={(addFieldName === '')} onClick={()=>addFieldHandler()}
+                        className="mt-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    {t('add')}
+                </button>
+                <div className='flex max-w-lg flex-row flex-wrap align-start'>
+                    {fields?.map((addField, index) => (
+                        <AdditionalField key={index} addField={addField}/>
+                    ))}
+                </div>
+
 
                 <div className="flex gap-8 items-center justify-center mt-4">
 

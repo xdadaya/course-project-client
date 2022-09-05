@@ -5,12 +5,14 @@ import {useTranslation} from "react-i18next";
 import axios from "../utils/axios";
 import {updateItem} from "../redux/features/item/itemSlice";
 import CreatableSelect from 'react-select/creatable';
+import AdditionalFieldInput from "../components/AdditionalFieldInput";
 
 const ItemEditPage = () => {
     const [item, setItem] = useState('')
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState([])
     const [usedTags, setUsedTags] = useState('')
+    const [addFields, setAddFields] = useState([])
     const {user} = useSelector(state => state.auth)
     const params = useParams()
     const dispatch = useDispatch()
@@ -29,18 +31,32 @@ const ItemEditPage = () => {
         setTags(data)
     }
 
+    const fetchAdditionalFields = async () => {
+        const {data} = await axios.get(`/addfields/item/${params.id}`)
+        setAddFields(data)
+    }
+
     useEffect(() => {
         fetchItem()
         fetchTags()
+        fetchAdditionalFields()
     }, [fetchItem])
 
     const submitHandler = () => {
         try {
+            let addValues = []
+            for(let i = 0; i<addFields.length; i++){
+                const element = document.getElementById(addFields[i]._id)
+                if(element.type === 'checkbox') addValues.push({inputValue: document.getElementById(addFields[i]._id).checked, additionalFieldId: addFields[i]._id, itemId: params.id})
+                else addValues.push({inputValue: document.getElementById(addFields[i]._id).value, additionalFieldId: addFields[i]._id, itemId: params.id})
+            }
+            const addValues2 = JSON.stringify({customValues: addValues})
             const data = new FormData()
             data.append('title', title)
             const temp = (usedTags.length!== 0) ? usedTags.map(({label}) => (label)) : []
             data.append('tags', temp)
             data.append('id', params.id)
+            data.append('additionalValues', addValues2)
             dispatch(updateItem(data))
             navigate(`/collection/${item?.collectionId}`)
         } catch (e) {
@@ -76,6 +92,11 @@ const ItemEditPage = () => {
                         options={tags}
                     />
                 </div>
+
+                <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">{t("collectionCreatePage.additionalFields")}</p>
+                {addFields?.map((addField, index) => (
+                    <AdditionalFieldInput key={index} addField={addField}/>
+                ))}
                 <button type="submit" onClick={submitHandler} disabled={!(title.length > 0 && usedTags.length > 0)}
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     {t("addItemPage.edit")}

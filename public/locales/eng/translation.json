@@ -1,5 +1,6 @@
 {
   "return": "Return",
+  "add": "Add",
   "edit": "Edit",
   "delete": "Delete",
   "save": "Save",
@@ -8,6 +9,10 @@
   "fromCollection": "from collection",
   "with": "with",
   "items": "items",
+  "toCollection": "To collection",
+  "fieldName": "Field name",
+  "fieldType": "Field type",
+  "notAPicture": "The selected file does not meet the requirements",
   "search": {
     "found": "Found",
     "items": "items",
@@ -45,11 +50,12 @@
   "collectionCreatePage": {
     "picUpload1": "Click to upload",
     "picUpload2": "or drag and drop ",
-    "picUpload3": "SVG, PNG, JPG or GIF (MAX. 800x400px)",
+    "picUpload3": "PNG, JPG or GIF (MAX. 800x400px)",
     "collectionName": "Collection name:",
     "collectionTheme": "Collection theme:",
     "collectionDescription": "Collection description:",
-    "collectionCreate":"Create collection"
+    "collectionCreate":"Create collection",
+    "additionalFields": "Additional fields for item"
   },
   "collectionPage": {
     "tableTitle": "Title",

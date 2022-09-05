@@ -51,15 +51,16 @@ const Nav = () => {
             <Navbar.Toggle/>
             <Navbar.Collapse>
                 <input type="text" value={searchText} onChange={(e)=>setSearchText(e.target.value)} onKeyDown={(e) => keyDownHandler(e.key)} maxLength='64'
-                       className="h-10 sm:h-6 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       className="sm:h-6 h-10  text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        placeholder={t("navbar.search")}/>
+
                 {isAuth && <Navbar.Link href="/create-collection"> {t("navbar.createCollection")} </Navbar.Link>}
                 {isAuth && <Navbar.Link href="/users-collections"> {t("navbar.myCollections")} </Navbar.Link>}
                 {isAdmin && <Navbar.Link href="/admin-panel"> {t("navbar.adminPanel")} </Navbar.Link>}
                 {!isAuth &&
                     <Navbar.Link href="/login">
                         <button
-                            className={"text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"}
+                            className={"text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-1 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"}
                             style={{width: "100%"}}>{t("navbar.login")}
                         </button>
                     </Navbar.Link>

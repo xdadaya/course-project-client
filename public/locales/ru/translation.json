@@ -1,5 +1,6 @@
 {
   "return": "Отмена",
+  "add": "Добавить",
   "edit": "Изменить",
   "delete": "Удалить",
   "save": "Сохранить",
@@ -8,6 +9,10 @@
   "fromCollection": "из коллекции",
   "with": "с",
   "items": "предметами",
+  "toCollection": "К коллекции",
+  "fieldName": "Имя поля",
+  "fieldType": "Тип поля",
+  "notAPicture": "Выбранный файл не подходит под требования",
   "search": {
     "found": "Найдено",
     "items": "предметов",
@@ -45,11 +50,12 @@
   "collectionCreatePage": {
     "picUpload1": "Нажмите чтобы загрузить",
     "picUpload2": "или перетяните ",
-    "picUpload3": "SVG, PNG, JPG или GIF (МАКС. 800x400пикс)",
+    "picUpload3": "PNG, JPG или GIF (МАКС. 800x400пикс)",
     "collectionName": "Название коллекции:",
     "collectionTheme": "Тема коллекции:",
     "collectionDescription": "Описание коллекции:",
-    "collectionCreate":"Создать коллекцию"
+    "collectionCreate":"Создать коллекцию",
+    "additionalFields": "Дополнительные поля для предмета"
   },
   "collectionPage": {
     "tableTitle": "Название",

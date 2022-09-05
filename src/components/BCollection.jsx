@@ -1,6 +1,5 @@
 import React from 'react'
 import Moment from 'react-moment'
-import {ThemeContext} from "./ThemeContext";
 import {Link} from "react-router-dom";
 import {API_URL} from "../config";
 
@@ -17,7 +16,7 @@ const BCollection = ({collection, isVertical}) => {
         </div>)
     }
 
-    const backgroundStyle = (collection.imgUrl) ? {backgroundImage: `url('${API_URL}${collection.imgUrl}')`} : {backgroundColor: getBackgroundColor()}
+    const backgroundStyle = (collection.imgUrl) ? {backgroundImage: `url(${collection.imgUrl})`} : {backgroundColor: getBackgroundColor()}
     return (
         <Link to={`/collection/${collection._id}`}>
             <div style={backgroundStyle}

@@ -6,20 +6,24 @@ import axios from "../utils/axios";
 import {createComment, getCommentByItemId} from "../redux/features/comments/commentSlice";
 import Comment from "../components/Comment";
 import Tag from "../components/Tag";
+import Loading from "../components/Loading";
 
 const ItemPage = () => {
     const [item, setItem] = useState([])
     const [text, setText] = useState('')
     const [tags, setTags] = useState([])
+    const [additionalValues, setAdditionalValuess] = useState([])
     const {comments} = useSelector(state => state.comment)
     const {user} = useSelector(state => state.auth)
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {t} = useTranslation()
+    const [itemExists, setItemExists] = useState(true)
 
     const fetchItem = useCallback(async()=>{
         const {data} = await axios.get(`/item/page/${params.id}`)
+        setItemExists(!(Boolean(data.message)))
         setItem(data.item)
     }, [params.id])
 
@@ -28,11 +32,17 @@ const ItemPage = () => {
         setTags(data)
     }, [params.id])
 
+    const fetchAdditionalValues = useCallback(async()=>{
+        const {data} = await axios.get(`/addvalue/${params.id}`)
+        setAdditionalValuess(data)
+    }, [params.id])
+
     useEffect( () => {
         fetchItem()
         fetchTags()
+        fetchAdditionalValues()
         dispatch(getCommentByItemId(params.id))
-    }, [fetchItem, fetchTags])
+    }, [fetchItem, fetchTags, fetchAdditionalValues])
 
     useEffect(()=>{
         const interval = setInterval(() => {
@@ -53,11 +63,14 @@ const ItemPage = () => {
         }
     }
 
-    if(!item){
+    if (!item) {
+        if (!itemExists) {
+            return (
+                <h1 className='text-xl text-center dark:text-white py-10 mx-auto'> No item with that id</h1>
+            )
+        }
         return (
-            <div className='text-xl text-center text-black py-10'>
-                No item with that id
-            </div>
+            <Loading/>
         )
     }
 
@@ -67,7 +80,7 @@ const ItemPage = () => {
                 <Link to={`/collection/${item.collectionId}`}>
                     <button type="button"
                             className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                        {t("back")}
+                        {t("toCollection")}
                     </button>
                 </Link>
                 <div>
@@ -80,10 +93,14 @@ const ItemPage = () => {
                         <Tag key={index} tag={tag}/>
                     ))}
                 </div>
+
+                {additionalValues?.map((addValue, index) => (
+                    <p key={index}> {addValue.inputName}: {addValue.inputValue} </p>
+                ))}
             </div>
             <div className=" md:w-full text-lg mx-auto mt-2">
                 <div className='w-full flex gap-4 justify-between items-center'>
-                    <textarea rows="3" value={text} onChange={e => setText(e.target.value)}
+                    <textarea rows="3" value={text} onChange={e => setText(e.target.value)} maxLength={256}
                               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder={t("addItemPage.createComment")}/>
                     <button type="button" onClick={createCommentHandler} disabled={text.length===0}

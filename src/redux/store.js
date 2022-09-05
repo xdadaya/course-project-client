@@ -4,6 +4,7 @@ import collectionSlice from "./features/collection/collectionSlice";
 import usersSlice from "./features/users/usersSlice";
 import itemSlice from "./features/item/itemSlice";
 import commentSlice from "./features/comments/commentSlice";
+import additionalFieldsSlice from "./features/additionalFields/additionalFieldsSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         collection: collectionSlice,
         user: usersSlice,
         item: itemSlice,
-        comment: commentSlice
+        comment: commentSlice,
+        additionalFields: additionalFieldsSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -19,7 +21,8 @@ export const store = configureStore({
                 ignoredActions: ['users/getUsers/fulfilled', 'collection/getAllCollections/fulfilled',
                     'collection/createCollection/fulfilled', 'item/getItemsByCollectionId/fulfilled',
                     'item/createItemInCollection/fulfilled', 'comment/getCommentByItemId/fulfilled',
-                    'comment/createComment/fulfilled', 'item/updateItem/fulfilled'
+                    'comment/createComment/fulfilled', 'item/updateItem/fulfilled',
+                    'additionalFields/getAdditionalFields/fulfilled'
                 ]
             },
         }),

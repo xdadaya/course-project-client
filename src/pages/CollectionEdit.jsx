@@ -8,16 +8,22 @@ import {ThemeContext} from "../components/ThemeContext";
 import Select from "react-select";
 import {useTranslation} from "react-i18next";
 import {API_URL} from "../config";
+import {addAdditionalField, getAdditionalFields} from "../redux/features/additionalFields/additionalFieldsSlice";
+import AdditionalField from "../components/AdditionalField";
+import {toast} from "react-toastify";
 
 const CollectionEdit = () => {
     const { theme } = React.useContext(ThemeContext);
     const [collection, setCollection] = useState({})
     const {user} = useSelector(state => state.auth)
+    const {fields} = useSelector(state => state.additionalFields)
     const [title, setTitle] = useState('')
     const [textTheme, setTextTheme] = useState('')
     const [description, setDescription] = useState('')
     const [oldImage, setOldImage] = useState('')
     const [newImage, setNewImage] = useState('')
+    const [addFieldName, setAddFieldName] = useState('')
+    const [addFieldType, setAddFieldType] = useState('Text')
     const bg = (theme === 'light') ? 'white' : 'rgb(31 41 55)'
     const fontColor = (theme === 'light') ? 'black' : 'white'
     const [themes, setThemes] = useState([])
@@ -43,22 +49,26 @@ const CollectionEdit = () => {
         setDescription(data.description)
         setTextTheme({value: data.theme, label: data.theme})
         setOldImage(data.imgUrl)
+        dispatch(getAdditionalFields(params.id))
     }, [params.id])
 
     useEffect(() => {
         fetchCollection()
     }, [fetchCollection])
 
+
     const submitHandler = () => {
         try {
+            const addfields = JSON.stringify({customFields: fields})
             const data = new FormData()
             data.append('title', title)
             data.append('theme', textTheme.value)
             data.append('description', description)
             data.append('image', newImage)
             data.append('id', params.id)
+            data.append('additionalFields', addfields)
             dispatch(updateCollection(data))
-            navigate('/')
+            navigate(`/collection/${params.id}`)
         } catch (e) {
             console.log(e)
         }
@@ -83,6 +93,20 @@ const CollectionEdit = () => {
                 console.log(`… file[${i}].name = ${file.name}`);
             });
         }
+    }
+
+    const addFieldHandler = () => {
+        dispatch(addAdditionalField({fieldName: addFieldName, fieldType: addFieldType}))
+        setAddFieldName('')
+        setAddFieldType('text')
+    }
+
+    const imageValidate = (image) => {
+        if(["image/jpeg", "image/jfif", "image/gif", "image/png"].includes(image.type) && image.size<2000000) {
+            setNewImage(image)
+            setOldImage('')
+        }
+        else toast(t("notAPicture"))
     }
 
     if(!(user?._id === collection.author || user?.isAdmin)){
@@ -112,16 +136,13 @@ const CollectionEdit = () => {
                                         className="font-semibold">{t("collectionCreatePage.picUpload1")}</span>{t("collectionCreatePage.picUpload2")}</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400">{t("collectionCreatePage.picUpload3")}</p>
                                 </div>
-                                <input id="dropzone-file" type="file" onChange={(e) => {
-                                    setNewImage(e.target.files[0])
-                                    setOldImage('')
-                                }} className="hidden"/>
+                                <input id="dropzone-file" type="file" accept='.png, .jpg, .gif, .jpeg, .jfif' onChange={(e) => imageValidate(e.target.files[0])} className="hidden"/>
                             </label>
                         </div>
                     </div>
                     <div className='flex object-cover py-2 items-center justify-center'>
                         {oldImage &&
-                            <img src={`${API_URL}${oldImage}`} alt={oldImage.name}/>
+                            <img src={`${oldImage}`} alt={oldImage.name}/>
                         }
                         {newImage && (
                             <img
@@ -136,7 +157,7 @@ const CollectionEdit = () => {
                 <label className='text-s text-gray-400 '>
                     {t("collectionCreatePage.collectionName")}
                     <input type='text' value={title} onChange={(e) => setTitle(e.target.value)} maxLength='32'
-                           className='mt-1 text-s text-black w-full rounded-lg bg-gray-300 dark:bg-gray-800 dark:text-white border-1 py-1 px-2 outline-none'/>
+                           className='mt-1 text-black w-full rounded-lg dark:bg-gray-800 dark:text-white border-1  px-2 outline-none'/>
                 </label>
 
                 <label className='text-s text-gray-400'>
@@ -166,6 +187,32 @@ const CollectionEdit = () => {
                     />
 
                 </label>
+
+
+                <p className='text-s text-gray-400'>{t('collectionCreatePage.additionalFields')}</p>
+
+                    <label htmlFor="fieldName" className='text-s text-gray-400'>{t("fieldName")}</label>
+                    <input id="fieldName" type='text' value={addFieldName} onChange={(e) => setAddFieldName(e.target.value)}
+                           maxLength='32'
+                           className='mt-1 text-black w-full rounded-lg dark:bg-gray-800 dark:text-white border-1  px-2 outline-none'/>
+                    <label htmlFor="types" className="text-s text-gray-400">{t("fieldType")}</label>
+                    <select id="types" value={addFieldType} onChange={(e) => setAddFieldType(e.target.value)}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Text</option>
+                        <option>Number</option>
+                        <option>Textarea</option>
+                        <option>CheckBox</option>
+                        <option>Date</option>
+                    </select>
+                    <button type="button" disabled={(addFieldName === '')} onClick={()=>addFieldHandler()}
+                            className="mt-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        {t('add')}
+                    </button>
+                    <div className='flex max-w-lg flex-row flex-wrap align-start'>
+                        {fields?.map((addField, index) => (
+                            <AdditionalField key={index} addField={addField}/>
+                        ))}
+                    </div>
 
                 <div className="flex gap-8 items-center justify-center mt-4 py-2">
                     <button onClick={submitHandler}

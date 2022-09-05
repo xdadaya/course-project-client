@@ -156,10 +156,10 @@ const CollectionPage = () => {
             <div className='flex-nowrap mx-auto sm:flex-wrap sm:flex px-2 py-5'>
                 <div className="max-w-lg sm:w-full text-lg text-center mx-auto">
                     <div
-                        className="flex flex-col dark:bg-gray-800 p-1 rounded-md hover:scale-105 border dark:border-gray-700 mb-3 mx-2">
+                        className="flex flex-col dark:bg-gray-800 p-1 rounded-md border dark:border-gray-700 mb-3 mx-2">
                         <div className={collection.imgUrl ? 'flex rouded-sm h-80' : 'flex rounded-sm'}>
                             {collection.imgUrl && (
-                                <img src={`${API_URL}${collection.imgUrl}`}
+                                <img src={`${collection.imgUrl}`}
                                      alt='img' className='object-cover w-full'/>
                             )}
                             {!collection.imgUrl && (
